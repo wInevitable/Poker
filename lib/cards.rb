@@ -50,7 +50,7 @@ class Card
     VALUE_STRINGS.keys
   end
   
-  attr_reader :self, :value
+  attr_reader :suit, :value
   
   def initialize(suit, value)
     unless Card.suits.include?(suit) && Card.values.include?(value)
