@@ -53,23 +53,48 @@ describe Hand do
   end
 
   describe "#hand_strength" do
-    it "returns hand strength"
-    #use array to order hands?
+    let(:hand_one) do
+      Hand.new([Card.new(:spades, :three),
+               Card.new(:diamonds, :three),
+               Card.new(:clubs, :three),
+               Card.new(:spades, :six),
+               Card.new(:spades, :nine)])
+    end
     
-    it "picks the strongest hand"
-    #multiple hands - returns strongest one
+    #orders hands correctly? - use poker value
+    it "returns correct hand strength" do
+      
+    end
   end
   
   describe "#beats?" do
-    it "returns true if hand strength is stronger than opp"
+    let(:hand_two) do
+      Hand.new([Card.new(:clubs, :deuce),
+               Card.new(:diamonds, :three),
+               Card.new(:spades, :ten),
+               Card.new(:hearts, :king),
+               Card.new(:clubs, :ace)])
+    end
+    it "returns true if hand strength is stronger than opp" do
+      
+    end
     
-    it "returns false if hand strength equal to or weaker than op"
+    it "returns false if hand strength equal to or weaker than op" do
+      
+    end
   end
 
-  #reveals
+  #reveals - render method
   describe "#show_hand" do
-    it "exposes hand strength to game"
-    #render method
+    let(:deck) {double("deck")}
+    let(:hand) do
+      Hand.new([Card.new(:spades, :deuce),
+               Card.new(:spades, :three)])
+    end
+  
+    it "prints hand strength to string" do
+      expect(hand.show_hand).to eq("2♠, 3♠")
+    end
   end
   
   describe "#return_cards" do
