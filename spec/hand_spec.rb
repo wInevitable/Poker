@@ -5,10 +5,27 @@ require 'hand'
 describe Hand do
   #draws five cards from the deck
   describe "#::deal_from" do
-    it "deals a hand of five cards"
+    let(:cards) do 
+      cards = { Card.new(:spade, :ten),
+             Card.new(:diamonds, :six),
+             Card.new(:clubs, :five),
+             Card.new(:hearts, :jack),
+             Card.new(:spades, :king)
+           }
+    end
+    
+    it "deals a hand of five cards" do
+      deck = double("deck")
+      deck.should_receive(:take).with(5).and_return(cards)
+      hand = Hand.deal_from(deck)
+      expect(hand.cards).to eq(cards)
+    end
   end
   
   #does not reveal cards to others
+  it "does not expose its cards directly" do
+    expect(hand).not_to respond_to(:cards)
+  end
   
   describe "#draw" do
     #exchanges cards
