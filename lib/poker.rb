@@ -7,7 +7,11 @@
 #if > two players remain, show their cards
 #strong hand wins
 
-require_relative 'cards'
-require_relative 'hand'
-require_relative 'player'
-require_relative 'dealer'
+require 'cards'
+require 'hand'
+require 'player'
+require 'dealer'
+
+class Poker
+  
+end

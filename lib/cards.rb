@@ -53,11 +53,11 @@ class Card
   attr_reader :self, :value
   
   def initialize(suit, value)
-    unless Card.suits.include?(suit) and Card.values.include?(value)
+    unless Card.suits.include?(suit) && Card.values.include?(value)
       raise "illegal suit (#{suit}) or value (#{value})"
     end
     
-    @suit, @value = suit, value, 
+    @suit, @value = suit, value
   end
   
   def poker_value
