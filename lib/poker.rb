@@ -14,4 +14,15 @@ require 'dealer'
 
 class Poker
   
+  def play
+    
+  end
+  
+  def over?
+    
+  end
+  
+  def winner?
+    
+  end
 end

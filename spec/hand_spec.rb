@@ -75,12 +75,19 @@ describe Hand do
                Card.new(:hearts, :king),
                Card.new(:clubs, :ace)])
     end
+    let(:hand_three) do
+      Hand.new([Card.new(:clubs, :deuce),
+               Card.new(:clubs, :three),
+               Card.new(:clubs, :ten),
+               Card.new(:clubs, :king),
+               Card.new(:clubs, :ace)])
+    end
     it "returns true if hand strength is stronger than opp" do
-      
+      expect(hand_three.beats?(hand_two)).to eq(true)
     end
     
     it "returns false if hand strength equal to or weaker than op" do
-      
+      expect(hand_two.beats?(hand_three)).to eq(false)
     end
   end
 

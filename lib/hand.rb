@@ -50,7 +50,8 @@ class Hand
   
   def hand_strength
     poker_hand = self.store_value.sort
-    suits = @cards.each { |card| card.suit }.uniq.count
+    suits = self.count_suits
+    puts suits
     num_cards = poker_hand.uniq.count
     poker_value = HANDS[:high_card]
     
@@ -85,6 +86,12 @@ class Hand
     poker_value
   end
   
+  def count_suits
+    suits = []
+    @cards.each { |card| suits << card.suit }
+    suits.uniq.count
+  end
+  
   def straight?(cards)
     cards[-1] - cards[0] == 4
   end
@@ -100,9 +107,9 @@ class Hand
   def beats?(other_hand) ###!!!!Also need to chech strength of pairs, kickers
     if self.hand_strength > other_hand.hand_strength
       true
-    elsif self.hand_strength == other_hand.hand_strength
+#    elsif self.hand_strength == other_hand.hand_strength
       #compare high cards if same hand
-      self.poker_hand[-1] > other_hand.poker_hand[-1]
+#      self.poker_hand[-1] > other_hand.poker_hand[-1]
     else
       false
     end
@@ -121,5 +128,5 @@ class Hand
         hand_card.suit == card.suit && hand_card.value == card.value
       end
     end
-  end
-end
+  end  
+end    
