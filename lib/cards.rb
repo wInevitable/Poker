@@ -38,5 +38,33 @@ class Card
     :ten   => 10,
     :jack  => 11,
     :queen => 12,
-    :king  => 13
+    :king  => 13,
+    :ace => 14
   }
+    
+  def self.suits
+    SUIT_STRINGS.keys
+  end
+  
+  def self.values
+    VALUE_STRINGS.keys
+  end
+  
+  attr_reader :self, :value
+  
+  def initialize(suit, value)
+    unless Card.suits.include?(suit) and Card.values.include?(value)
+      raise "illegal suit (#{suit}) or value (#{value})"
+    end
+    
+    @suit, @value = suit, value, 
+  end
+  
+  def poker_value
+    POKER_VALUE[value]
+  end
+  
+  def to_s
+    VALUE_STRINGS[value] + SUIT_STRINGS[suit]
+  end
+end
