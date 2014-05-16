@@ -17,13 +17,14 @@ describe Deck do
   
   #double this
   let(:cards) do
-    double([[:diamonds, :queen], [:clubs, :ten], [:hearts, :jack]])
+    cards = [[:diamonds, :queen], [:clubs, :ten],
+             [:hearts, :jack]]
   end
   
   #builds the deck appropriately when initialized
   describe "initialize" do
     it "defaults to 52 cards" do
-      expect(deck.count).to eq(52)
+      expect(Deck.new.count).to eq(52)
     end
     
     it "can be fed an array of cards" do
@@ -52,7 +53,7 @@ describe Deck do
     end
     
     it "does not allow you to take more cards than there are in the deck" do
-      expected do
+      expect do
         deck.take(4)
       end.to raise_error("not enough cards")
     end
@@ -61,7 +62,8 @@ describe Deck do
   #returns cards to the deck
   describe "#return" do
     let(:extra_cards) do
-      double([[:clubs, :deuce], [:spades, :six], [:diamonds, :eight]])
+      extra_cards = [[:clubs, :deuce], [:spades, :six],
+                     [:diamonds, :eight]]
     end
     
     it "adds card back to the deck" do
@@ -71,7 +73,7 @@ describe Deck do
     it "does not destory the cards passed in" do
       more_cards = extra_cards.dup
       deck.return(more_cards)
-      expected(more_cards).to eq(extra_cards)
+      expect(more_cards).to eq(extra_cards)
     end
     
     it "returns cards to the bottom of the deck" do
