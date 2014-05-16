@@ -1,7 +1,9 @@
+require_relative 'cards'
+require 'pry'
 #combine card suit and value when displaying
 class Hand
   
-  POKER_HANDS = {
+  HANDS = {
     :straight_flush => 9,
     :four_of_a_kind => 8,
     :full_house => 7,
@@ -38,30 +40,64 @@ class Hand
     end
   end
   
+  def store_value
+    poker_values = []
+    @cards.each do |card|
+      poker_values << card.poker_value 
+    end
+    poker_values 
+  end
+  
   def hand_strength
-    @poker_hand = @cards.each { |card| card.poker_value }.sort
-    poker_value = 1
-    if #straight_flush - if top - bottom = 4 and suit
+    poker_hand = self.store_value.sort
+    suits = @cards.each { |card| card.suit }.uniq.count
+    num_cards = poker_hand.uniq.count
+    poker_value = HANDS[:high_card]
     
-    elsif #four_of_a_kind - four of same value
+    #remember to check low and high aces
+    dup = poker_hand.dup
+    ace_check = [dup.pop] + dup
+   
+    if straight?(poker_hand) || straight?(ace_check[-1]) && suits == 1
+      poker_value = HANDS[:straight_flush]
+    
+    elsif num_cards == 2 && poker_hand[1] == poker_hand[3]
+      poker_value = HANDS[:four_of_a_kind]
+  
+    elsif num_cards == 2
+      poker_value = HANDS[:full_house]
+    
+    elsif suits == 1
+      poker_value = HANDS[:flush]
+  
+    elsif straight?(poker_hand) || straight?(ace_check[-1])
+      poker_value = HANDS[:straight]
+      
+    elsif num_cards == 3 && three_of_a_kind?(poker_hand)
+      poker_value = HANDS[:three_of_a_kind]
+   
+    elsif num_cards == 3
+      poker_value = HANDS[:two_pair]
 
-    elsif #full_house
-    
-    elsif #flush
-    
-    elsif #straight - if top - bottom = 4
-      
-    elsif #three_of_a_kind
-    
-    elsif #two_pair
-      
-    elsif #one_pair?
-      
+    elsif num_cards == 4
+      poker_value = HANDS[:one_pair]
     end
     poker_value
   end
   
-  def beats?(other_hand)
+  def straight?(cards)
+    cards[-1] - cards[0] == 4
+  end
+  
+  def three_of_a_kind?(cards)
+    three = false
+    cards.each do |card|
+      three = true if cards.count(card) == 3
+    end
+    three
+  end
+  
+  def beats?(other_hand) ###!!!!Also need to chech strength of pairs, kickers
     if self.hand_strength > other_hand.hand_strength
       true
     elsif self.hand_strength == other_hand.hand_strength

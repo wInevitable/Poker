@@ -50,18 +50,14 @@ class Card
     VALUE_STRINGS.keys
   end
   
-  attr_reader :suit, :value
+  attr_reader :suit, :value, :poker_value
   
   def initialize(suit, value)
     unless Card.suits.include?(suit) && Card.values.include?(value)
       raise "illegal suit (#{suit}) or value (#{value})"
     end
     
-    @suit, @value = suit, value
-  end
-  
-  def poker_value
-    POKER_VALUE[value]
+    @suit, @value, @poker_value = suit, value, POKER_VALUE[value]
   end
   
   def to_s

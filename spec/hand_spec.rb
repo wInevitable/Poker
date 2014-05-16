@@ -63,7 +63,7 @@ describe Hand do
     
     #orders hands correctly? - use poker value
     it "returns correct hand strength" do
-      
+      expect(hand_one.hand_strength).to eq(4)
     end
   end
   
